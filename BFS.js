@@ -41,13 +41,17 @@ function BFS(graph, src, dest) {
   while (queue.length !== 0) {
     const v = queue.shift();
 
-    for (let i = 0; i < adjList[v].length; i += 1) {
-      if (visited[adjList[v][i]] !== 1) {
-        predecessor[adjList[v][i]] = v;
-        visited[adjList[v][i]] = 1;
-        queue.push(adjList[v][i]);
+    const moves = possibleMoves(v);
 
-        if (adjList[v][i] === dest) {
+    for (let i = 0; i < moves.length; i += 1) {
+      const m = moves[i];
+
+      if (visited[m] !== 1) {
+        predecessor[m] = v;
+        visited[m] = 1;
+        queue.push(m);
+
+        if (m === dest) {
           return predecessor;
         }
       }
