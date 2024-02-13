@@ -11,29 +11,79 @@ function convertNumToXY(num) {
   return [x, y];
 }
 
+function possibleMoves(vertex) {
+  const moves = [];
+
+  // 2 North, 1 West; 1 West, 2 North
+  if (vertex > 16 && vertex % 8 !== 0) {
+    moves.push(vertex - 17);
+  }
+
+  // 2 North, 1 East; 1 East, 2 North
+  if ((vertex > 15 && vertex % 8 !== 7)) {
+    moves.push(vertex - 15);
+  }
+
+  // 1 North, 2 West; 2 West, 1 North
+  if (vertex > 9 && vertex % 8 > 1) {
+    moves.push(vertex - 10);
+  }
+
+  // 1 North, 2 East; 2 East, 1 North
+  if (vertex > 7 && vertex % 8 < 6) {
+    moves.push(vertex - 6);
+  }
+
+  // 2 South, 1 West; 1 West, 2 South
+  if (vertex < 48 && vertex % 8 !== 0) {
+    moves.push(vertex + 15);
+  }
+
+  // 2 South, 1 East; 1 East, 2 South
+  if (vertex < 47 && vertex % 8 !== 7) {
+    moves.push(vertex + 17);
+  }
+
+  // 1 South, 2 West; 2 West, 1 South
+  if (vertex < 56 && vertex % 8 > 1) {
+    moves.push(vertex + 6);
+  }
+
+  // 1 South, 2 East; 2 East, 1 South
+  if (vertex < 54 && vertex % 8 < 6) {
+    moves.push(vertex + 10);
+  }
+
+  return moves;
+}
+
 function printPath(predecessorArray, dest) {
-  const path = [];
+  const tmpPath = [];
+  const finalPath = [];
   let i = dest;
 
-  path.push(i);
+  tmpPath.push(i);
 
   while (predecessorArray[i] !== undefined) {
-    path.push(predecessorArray[i]);
+    tmpPath.push(predecessorArray[i]);
     i = predecessorArray[i];
   }
 
-  for (let n = 0; n < path.length; n += 1) {
-    path[n] = convertNumToXY(path[n]);
+  for (let n = 0; n < tmpPath.length; n += 1) {
+    tmpPath[n] = convertNumToXY(tmpPath[n]);
   }
 
-  return path;
+  for (let n = tmpPath.length - 1; n >= 0; n -= 1) {
+    finalPath.push(tmpPath[n]);
+  }
+
+  return finalPath;
 }
 
 function BFS(graph, src, dest) {
   const queue = [];
   const visited = new Array(graph.numOfVertices).fill(0);
   const predecessor = new Array(graph.numOfVertices);
-  const { adjList } = graph;
 
   visited[src] = 1;
   queue.push(src);
