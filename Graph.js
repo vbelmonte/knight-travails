@@ -1,26 +1,32 @@
-class Graph {
-  matrix = null;
+export default class Graph {
+  adjList = null;
 
-  constructor(numberOfNodes) {
-    for (let i = 0; i < numberOfNodes; i += 1) {
-      this.matrix.push(new Array(numberOfNodes).fill(0));
+  numOfVertices = null;
+
+  constructor(numberOfVertices) {
+    this.adjList = new Array(numberOfVertices).fill([]);
+    this.numOfVertices = numberOfVertices;
+
+    for (let i = 0; i < numberOfVertices; i += 1) {
+      this.adjList[i] = [];
     }
+  }
+
+  get adjList() {
+    return this._adjList;
+  }
+
+  get numOfVertices() {
+    return this._numOfVertices;
   }
 
   addEdge(source, destination) {
-    this.matrix[source][destination] = 1;
-    this.matrix[destination][source] = 1;
+    this.adjList[source].push(destination);
   }
 
-  removeEdge(source, destination) {
-    this.matrix[source][destination] = 0;
-    this.matrix[destination][source] = 0;
-  }
-
-  isEdge(source, destination) {
-    if (this.matrix[source][destination] === 1) {
-      return true;
+  printGraph() {
+    for (let i = 0; i < this.adjList.length; i += 1) {
+      console.log(this.adjList[i]);
     }
-    return false;
   }
 }

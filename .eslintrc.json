@@ -16,6 +16,9 @@
             "error",
             "double"
         ],
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "import/extensions": 0,
+        "no-underscore-dangle": 0,
+        "no-dupe-class-members": 0
     }
 }
