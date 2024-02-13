@@ -22,7 +22,6 @@ export default class Graph {
 
   addEdge(source, destination) {
     this.adjList[source].push(destination);
-    /* this.adjList[destination].push(source); */
   }
 
   printGraph() {
