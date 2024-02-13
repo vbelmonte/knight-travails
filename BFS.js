@@ -1,3 +1,5 @@
+import createChessBoard from "./Board.js";
+
 function convertXYToNum(xy) {
   const num = (xy[1] * 8) + xy[0];
 
@@ -111,7 +113,8 @@ function BFS(graph, src, dest) {
   return null;
 }
 
-export default function findShortestPath(graph, source, destination) {
+export default function findShortestPath(source, destination) {
+  const graph = createChessBoard();
   const srcVertex = convertXYToNum(source);
   const destVertex = convertXYToNum(destination);
 
